@@ -5,10 +5,16 @@
   box-sizing: border-box;
 }
 
+body {
+  background: #0f0c29;  
+  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29); 
+  background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  }
+
 .my-container {
   width: 100%;
   min-height: 100vh;
-  background-image: url(../images/register.jpg);
+  background: url(../images/register.jpg) ;
   background-size: cover;
   background-position: center;
   display: flex;
