@@ -1,31 +1,28 @@
 const router = require("express").Router();
-const { Fridge, User, Recipe, Ingredient } = require("../../models");
+const { Fridge, User, Recipe, Ingredient, FridgeIngredient } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-router.get("/", (req, res) => {
-  Fridge.findAll({
-    attributes: ["id"],
-    order: [["created_at", "DESC"]],
-    include: [
-      {
-        model: Ingredient,
-        attributes: ["id", "name"],
-        include: {
-          model: User,
-          attributes: ["email", "name"],
-        },
-      },
-      {
-        model: User,
-        attributes: ["name", "email"],
-      },
-    ],
-  })
-    .then((data) => res.json({ data: data, user_id: req.session.user_id }))
-    .catch((err) => {
-      res.status(500).json(err);
-    });
-});
+// router.get("/", (req, res) => {
+//   Fridge.findAll({
+//     attributes: ["id"],
+//     include: [
+//       {
+//         model: Ingredient,
+//         through: FridgeIngredient,
+//         as: "stocks",
+//         attributes: ["id", "name"],
+//       },
+//       {
+//         model: User,
+//         attributes: ["name", "email"],
+//       },
+//     ],
+//   })
+//     .then((data) => res.json({ data: data }))
+//     .catch((err) => {
+//       res.status(500).json(err);
+//     });
+// });
 
 router.get("/:id", (req, res) => {
   Fridge.findOne({
@@ -71,7 +68,7 @@ router.post("/", withAuth, (req, res) => {
     });
 });
 
-router.put("/:id", withAuth, (req, res) => {
+router.put("/:id", (req, res) => {
   req.body["user_id"] = req.session.user_id;
 
   Fridge.update(req.body, {
@@ -92,23 +89,23 @@ router.put("/:id", withAuth, (req, res) => {
     });
 });
 
-router.delete("/:id", withAuth, (req, res) => {
-  Fridge.destroy({
-    where: {
-      id: req.params.id,
-    },
-  })
-    .then((data) => {
-      if (!data) {
-        res.status(404).json({ message: "No post found with this id" });
-        return;
-      }
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+// router.delete("/:id", withAuth, (req, res) => {
+//   Fridge.destroy({
+//     where: {
+//       id: req.params.id,
+//     },
+//   })
+//     .then((data) => {
+//       if (!data) {
+//         res.status(404).json({ message: "No post found with this id" });
+//         return;
+//       }
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+// });
 
 module.exports = router;

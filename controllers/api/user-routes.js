@@ -3,6 +3,7 @@ const { User } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 router.post("/register", (req, res) => {
+  
   User.create({
     name: req.body.name,
     email: req.body.email,
@@ -13,7 +14,7 @@ router.post("/register", (req, res) => {
       req.session.email = data.email;
       req.session.logged_in = true;
 
-      res.json(data);
+      res.json("You have registered");
     });
   });
 });
@@ -22,13 +23,13 @@ router.post("/login", (req, res) => {
   console.log(req.body);
   User.findOne({
     where: {
-      username: req.body.username,
+      email: req.body.email,
     },
   }).then((data) => {
     if (!data) {
       res
         .status(400)
-        .json({ message: "No user found with this email address!" });
+        .json({ message: "No user found with this name!" });
       return;
     }
     const validPassword = data.checkPassword(req.body.password);
