@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+.my-container {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url(../images/register.jpg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.my-container h1 {
+  color: #000;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.signup-box {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+}
+
+.box {
+  padding: 50px;
+  background: #6b00d5;
+  color: #fff;
+}
+
+.input-box {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #fff;
+  outline: none;
+  color: #fff;
+  font-size: 12px;
+  background: transparent;
+}
+
+::placeholder {
+  color: #fff;
+}
+
+input[type="checkbox"] {
+  margin-top: 30px;
+}
+
+.box label {
+  font-size: 14px;
+}
+
+.box button {
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box button:hover {
+  font-weight: 500;
+  background: #000;
+  color: #fff;
+}
+
+.box button span {
+  display: inline-block;
+  width: 0px;
+  overflow: hidden;
+  transition: width 0.5s;
+}
+
+.box button:hover span {
+  width: 30px;
+}
+
+.login-msg {
+  text-align: center;
+  color: #fff;
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+.login-msg a {
+  color: #ea4335;
+  text-decoration: none;
+}
+
+#message {
+  color: #fff;
+  font-size: 15px;
+  display: none;
+}
