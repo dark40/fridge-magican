@@ -36,5 +36,4 @@ const sendEmail = (email) => {
     });
 }
 
-sendEmail("dark_yty@hotmail.com");
 module.exports = sendEmail;
