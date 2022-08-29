@@ -36,4 +36,16 @@ router.get("/register", async (req, res) => {
   }
 });
 
+router.get("/logout", async (req, res) => {
+  try {
+    if (req.session.logged_in) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      })};
+    res.render("logout", {});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
