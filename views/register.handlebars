@@ -6,7 +6,7 @@
   <div class="signup-box">
     <div class="box">
       <form>
-        <input type="text" placeholder="Your Name" required class="input-box" />
+        <input type="text" id='username' placeholder="Your Name" required class="input-box" />
         <input
           type="email"
           id="email"
@@ -24,11 +24,11 @@
         <p id="message">Password is <span id="strenght"></span></p>
         <input type="checkbox" id="terms" />
         <label for="terms">I accept the terms & conditions</label>
-        <button type="submit">Sign Up <span>&#x27f6;</span></button>
+        <button type="submit" id="register-now">Sign Up <span>&#x27f6;</span></button>
       </form>
       <p class="login-msg">
         Already have an account?
-        <a href="../views/login.handlebars">Login Now</a>
+        <a href="/login">Login Now</a>
       </p>
 
     </div>
