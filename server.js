@@ -1,29 +1,44 @@
-// Import dependencies
-const express = require('express');
-const exphbs = require('express-handlebars');
 const path = require('path');
-
-// Configure routes
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
 const routes = require('./controllers');
+const helpers = require('./utils/helpers');
 
-// Set up database connection
 const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-// Set up handlebars engine
-const hbs = exphbs.create({});
-
-// Set up app and port
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Configure handlebars
+// Set up Handlebars.js engine with custom helpers
+const hbs = exphbs.create({ helpers });
+
+const sess = {
+    secret: 'Super secret secret',
+    cookie: {
+        maxAge: 300000,
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict',
+    },
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize
+    })
+};
+
+app.use(session(sess));
+
+// Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// Configure static routes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Use the controllers middleware
 app.use(routes);
 
 // Sync the database and start the app
