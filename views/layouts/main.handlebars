@@ -19,7 +19,9 @@
       <div class="container-fluid bg-light">
         <div class="row w-100 mx-auto align-items-center">
           <div class="col-3 text-center">
+            {{#if logged_in}}
             <a class="nav-link" aria-current="page" href="#">Logout</a>
+            {{/if}}
           </div>
           <div class="col-6 text-center">
             <h1>
@@ -27,7 +29,9 @@
             </h1>
           </div>
           <div class="col-3 text-center">
+            {{#unless logged_in}}
             <a class="nav-link active" aria-current="page" href="/login">Login</a>
+            {{/unless}}
           </div>
         </div>
       </div>
