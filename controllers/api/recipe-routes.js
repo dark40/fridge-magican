@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Recipe, Ingredient } = require("../../models");
+const { Recipe, Ingredient, RecipeIngredient } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
@@ -13,10 +13,12 @@ router.get("/", (req, res) => {
       "calories",
       "difficulty",
     ],
-    order: [["created_at", "DESC"]],
+    // order: [["created_at", "DESC"]],
     include: [
       {
         model: Ingredient,
+        through: RecipeIngredient,
+        as: "ingredients",
         attributes: ["id", "name"],
       },
     ],
