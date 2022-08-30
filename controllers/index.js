@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 router.use("/", require("./home-routes"));
-// router.use("/fridge", require("./api/fridge-routes"));
+router.use("/fridge", require("./fridge-routes"));
 // router.use("/ingredient", require("./api/ingredient-routes"));
 // router.use("/recipe", require("./api/recipe-routes"));
 

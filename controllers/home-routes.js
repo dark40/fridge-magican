@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   })
     .then((data) => {
       const posts = data.map((post) => post.get({ plain: true }));
-      res.render("home", { posts, logged_in: req.session.logged_in, current_user: req.session.email });
+      res.render("home", { posts, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id });
     })
     .catch((err) => {
       res.status(500).json(err);
