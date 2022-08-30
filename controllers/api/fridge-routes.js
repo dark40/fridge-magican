@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id"],
+    attributes: ["id", "user_id"],
     include: [
       {
         model: User,
@@ -37,11 +37,9 @@ router.get("/:id", (req, res) => {
       },
       {
         model: Ingredient,
+        through: FridgeIngredient,
+        as: "stocks",
         attributes: ["id", "name"],
-        include: {
-          model: User,
-          attributes: ["email", "name"],
-        },
       },
     ],
   })

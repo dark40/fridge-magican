@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
           "id",
           "name",
           "description",
-          "instruction",
+          // "instruction",
           "time",
           "calories",
           "difficulty",
