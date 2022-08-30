@@ -1,0 +1,39 @@
+<div class="my-container">
+  
+  <link rel="stylesheet" href="../../css/register.css" />
+
+  <h1>Create an account</h1>
+  <div class="signup-box">
+    <div class="box">
+      <form>
+        <input type="text" id='username' placeholder="Your Name" required class="input-box" />
+        <input
+          type="email"
+          id="email"
+          placeholder="Your email "
+          required
+          class="input-box"
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Create Password"
+          required
+          class="input-box"
+        />
+        <p id="message">Password is <span id="strength"></span></p>
+        <input type="checkbox" id="terms" />
+        <label for="terms">I accept the terms & conditions</label>
+        <button type="submit" id="register-now">Sign Up <span>&#x27f6;</span></button>
+      </form>
+      <p class="login-msg">
+        Already have an account?
+        <a href="/login">Login Now</a>
+      </p>
+
+    </div>
+  </div>
+
+  <script src="../js/register.js"></script>
+
+</div>
