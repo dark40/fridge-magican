@@ -29,9 +29,11 @@
             </h1>
           </div>
           <div class="col-3 text-center">
-            {{#unless logged_in}}
+            {{#if logged_in}}
+            <p>{{current_user}}</p>
+            {{else}}
             <a class="nav-link active" aria-current="page" href="/login">Login</a>
-            {{/unless}}
+            {{/if}}
           </div>
         </div>
       </div>
