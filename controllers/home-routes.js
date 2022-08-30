@@ -1,6 +1,7 @@
 const { Fridge, Ingredient, Recipe, User } = require("../models");
 const router = require("express").Router();
 
+// Render homepage
 router.get("/", async (req, res) => {
   Fridge.findAll({
     attributes: ["id"],
@@ -20,6 +21,7 @@ router.get("/", async (req, res) => {
     });
 });
 
+// Render login page
 router.get("/login", async (req, res) => {
   try {
     res.render("login", {});
@@ -28,6 +30,7 @@ router.get("/login", async (req, res) => {
   }
 });
 
+// Render register page
 router.get("/register", async (req, res) => {
   try {
     res.render("register", {});
@@ -36,6 +39,7 @@ router.get("/register", async (req, res) => {
   }
 });
 
+// Render logout page and log user out of application
 router.get("/logout", async (req, res) => {
   try {
     if (req.session.logged_in) {
