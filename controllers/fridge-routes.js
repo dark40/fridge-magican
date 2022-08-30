@@ -2,29 +2,28 @@ const { Fridge, Ingredient, Recipe, User, FridgeIngredient } = require("../model
 const router = require("express").Router();
 const withAuth = require("../utils/auth");
 
-router.get("/", withAuth, async (req, res) => {
-  Fridge.findAll({
-    attributes: ["id"],
-    include: [
-      {
-        model: User,
-        attributes: ["name", "email"],
-      },
-      {
-        model: Ingredient,
-        through: FridgeIngredient,
-        as: 'stocks',
-        attributes: ["id", "name"],
-      },
-    ],
-  })
-    .then((data) => {
-      const posts = data.map((post) => post.get({ plain: true }));
-      res.render("fridge", { posts, logged_in: req.session.logged_in });
-    })
-    .catch((err) => {
-      res.status(500).json(err);
+router.get("/:id", withAuth, async (req, res) => {
+  try {
+    const userFridgeData = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Fridge,
+          through: FridgeIngredient,
+          as: 'fridges'
+        }
+      ]
     });
+    
+    if(!userFridgeData) {
+      res.status(404).render("404");
+    }
+  
+    const fridge = userFridgeData.map((fridges) => fridges.get({ plain: true }))
+  
+    res.render("fridge", { fridge });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

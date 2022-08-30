@@ -2,4 +2,8 @@
 
 <p>{{posts}}</p>
 
+{{#if user_id}}
 <a href="/fridge/{{user_id}}">Test</a>
+{{else}}
+<a href="/login">Test</a>
+{{/if}}
