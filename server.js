@@ -1,9 +1,4 @@
 const path = require('path');
-
-// Require models
-const { user, fridge, recipe, ingredient } = require('./models');
-
-// Configure routes
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
@@ -40,14 +35,8 @@ app.use(session(sess));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// Use json and urlecoded middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Configure static routes
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
