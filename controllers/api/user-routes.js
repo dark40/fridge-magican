@@ -40,7 +40,7 @@ router.post("/login", (req, res) => {
     }
     req.session.save(() => {
       req.session.user_id = data.id;
-      req.session.username = data.username;
+      req.session.email = data.email;
       req.session.logged_in = true;
 
       res.json({ user: data, message: "You are now logged in!" });
