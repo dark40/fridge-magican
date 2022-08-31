@@ -34,7 +34,7 @@ router.get("/:id", withAuth, async (req, res) => {
 
     // Clean the fridge ingredient data
     const fridgeIngredientDataClean = fridgeIngredientData.get({ plain: true });
-
+    
     // Render the page
     res.render("fridge", { userFridgeDataClean, fridgeIngredientDataClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id });
   } catch (err) {
