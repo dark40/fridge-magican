@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { Fridge, User, Recipe, Ingredient, FridgeIngredient } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", withAuth, async (req, res) => {
   try {
     // Find all previous ingredients associations and destroy them
     const destroyReturnValue = await FridgeIngredient.destroy({
@@ -21,7 +21,7 @@ router.put("/:id", async (req, res) => {
       const createdLinks = await FridgeIngredient.bulkCreate(fridgeIngredientsArray);
     };
     // Provide success response
-    res.status(200).render("fridge");
+    res.status(200).json("Ingredients successfully added!");
   } catch (err) {
     res.status(500).json("Internal Server Error");
   }
