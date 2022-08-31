@@ -1,4 +1,4 @@
-const { Fridge, Ingredient, Recipe, User, FridgeIngredient } = require("../models");
+const { Fridge, Ingredient, User, FridgeIngredient } = require("../models");
 const router = require("express").Router();
 const withAuth = require("../utils/auth");
 

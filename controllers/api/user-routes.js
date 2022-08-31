@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { User, Fridge } = require("../../models");
-const withAuth = require("../../utils/auth");
 
 router.post("/register", async (req, res) => {
   
@@ -18,7 +17,7 @@ router.post("/register", async (req, res) => {
     req.session.user_id = userDetails.id;
     req.session.email = userDetails.email;
     req.session.logged_in = true;
-    
+
     res.json("You have registered");
   })
 

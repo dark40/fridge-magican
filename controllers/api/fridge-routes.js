@@ -2,89 +2,29 @@ const router = require("express").Router();
 const { Fridge, User, Recipe, Ingredient, FridgeIngredient } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-// router.get("/", (req, res) => {
-//   Fridge.findAll({
-//     attributes: ["id"],
-//     include: [
-//       {
-//         model: Ingredient,
-//         through: FridgeIngredient,
-//         as: "stocks",
-//         attributes: ["id", "name"],
-//       },
-//       {
-//         model: User,
-//         attributes: ["name", "email"],
-//       },
-//     ],
-//   })
-//     .then((data) => res.json({ data: data }))
-//     .catch((err) => {
-//       res.status(500).json(err);
-//     });
-// });
-
-router.get("/:id", (req, res) => {
-  Fridge.findOne({
-    where: {
-      id: req.params.id,
-    },
-    attributes: ["id", "user_id"],
-    include: [
-      {
-        model: User,
-        attributes: ["name", "email"],
-      },
-      {
-        model: Ingredient,
-        through: FridgeIngredient,
-        as: "stocks",
-        attributes: ["id", "name"],
-      },
-    ],
-  })
-    .then((data) => {
-      if (!data) {
-        res.status(404).json({ message: "No post found with this id" });
-        return;
-      }
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
+router.put("/:id", async (req, res) => {
+  try {
+    // Find all previous ingredients associations and destroy them
+    const destroyReturnValue = await FridgeIngredient.destroy({
+      where: { fridge_id: req.params.id}
     });
-});
 
-router.post("/", withAuth, (req, res) => {
-  req.body["user_id"] = req.session.user_id;
-  Fridge.create(req.body)
-    .then((data) => res.json(data))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.put("/:id", (req, res) => {
-  req.body["user_id"] = req.session.user_id;
-
-  Fridge.update(req.body, {
-    where: {
-      id: req.params.id,
-    },
-  })
-    .then((data) => {
-      if (!data) {
-        res.status(404).json({ message: "No post found with this id" });
-        return;
-      }
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    // Add updated associations based on items added on front end
+    if (req.body.ingredients.length) {
+      const fridgeIngredientsArray = req.body.ingredients.map((ingredient_id) => {
+        return {
+          ingredient_id,
+          fridge_id: req.params.id
+        };
+      });
+      // Create the new relationships in the FridgeIngredients model
+      const createdLinks = await FridgeIngredient.bulkCreate(fridgeIngredientsArray);
+    };
+    // Provide success response
+    res.status(200).render("fridge");
+  } catch (err) {
+    res.status(500).json("Internal Server Error");
+  }
 });
 
 // router.delete("/:id", withAuth, (req, res) => {
