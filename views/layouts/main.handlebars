@@ -30,7 +30,7 @@
           </div>
           <div class="col-3 text-center">
             {{#if logged_in}}
-            <p>{{current_user}}</p>
+            <a class="nav-link active" aria-current="page" href="/fridge/{{user_id}}">{{current_user}}</p>
             {{else}}
             <a class="nav-link active" aria-current="page" href="/login">Login</a>
             {{/if}}

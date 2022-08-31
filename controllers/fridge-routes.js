@@ -8,8 +8,6 @@ router.get("/:id", withAuth, async (req, res) => {
       include: [
         {
           model: Fridge,
-          through: FridgeIngredient,
-          as: 'fridges'
         }
       ]
     });
