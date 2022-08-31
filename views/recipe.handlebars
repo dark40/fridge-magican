@@ -1,1 +1,69 @@
-<h1>Recipe Page</h1>
+{{!-- Available Parameters
+rstepsArray
+recipeClean.calories
+            description
+            difficulty
+            id
+            ingredients
+            instruction
+            name
+            time --}}
+
+<div class="row text-center mb-3">
+    <h2>{{recipeClean.name}}</h2>
+</div>
+
+<div class="row text-center mb-3">
+    <p>{{recipeClean.description}}</p>
+</div>
+
+<div class="row justify-content-center mb-5">
+    <div class="col-3 text-center m-2">
+        <span class="badge rounded-pill text-bg-secondary p-2">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Difficulty: {{recipeClean.difficulty}}
+        </span>
+    </div>
+    <div class="col-3 text-center m-2">
+        <span class="badge rounded-pill text-bg-secondary p-2">
+            <i class="fa-solid fa-clock"></i>
+            Time: {{recipeClean.time}} min
+        </span>
+    </div>        
+</div>
+
+{{!-- Section for method and ingredients --}}
+<div class="row justify-content-around">
+    <div class="col-8 col-xl-9">
+        <h4><u>Method</u></h4>
+        
+        {{!-- Render the recipe steps --}}
+        {{#each rstepsArray as |step|}}
+            {{#if step}}
+                <div class="row py-3 mt-2 border-bottom">
+                    <div class="col-1">
+                        <span class="px-2 py-1 bg-secondary rounded text-white"><b>{{@index}}</b></span>
+                    </div>
+                    <div class="col-11">
+                        <span>{{step}}</span>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+        
+    </div>
+    <div class="col-4 col-xl-2 text-center">
+        <h4 class="mb-4"><u>Ingredients</u></h4>
+            {{!-- Render the ingredients list --}}
+        {{#each recipeClean.ingredients as |ingredient|}}
+            <div class="row bg-secondary rounded-pill my-2">
+                <div class="col-12 text-center">
+                    <span class="text-white">{{ingredient.name}}</span>
+                </div>
+            </div>
+        {{/each}}
+
+    </div>
+</div>
+
+

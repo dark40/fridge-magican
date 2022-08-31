@@ -2,7 +2,8 @@ const { Fridge, Ingredient, Recipe, RecipeIngredient } = require("../models");
 const router = require("express").Router();
 const withAuth = require("../utils/auth");
 
-router.get("/:id", withAuth, async (req, res) => {
+// add in with auth middleware
+router.get("/:id", async (req, res) => {
   try {
     const chosenRecipe = await Recipe.findByPk(req.params.id, {
       include: [
@@ -19,7 +20,11 @@ router.get("/:id", withAuth, async (req, res) => {
     }
 
     const recipeClean = chosenRecipe.get({ plain: true });
-    res.render("recipe", { recipeClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id });
+
+    // Split recipe steps into an array
+    const rstepsArray = recipeClean.instruction.split(/Step \d/);
+
+    res.render("recipe", { recipeClean, rstepsArray, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id });
   } catch {
     res.status(500).json("Internal Server Error");
   }
