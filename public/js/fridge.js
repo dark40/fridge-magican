@@ -12,7 +12,7 @@ const saveIngredient = (fridgeIngredient) =>
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(fridgeIngredient.ingredient_id),
+        body: JSON.stringify(fridgeIngredient)
     });
 
 
@@ -53,7 +53,7 @@ const handleIngredientSave = () => {
 
     const fridgeIngredient = {
         id: fridge_id,
-        ingredient_id: arr,
+        ingredients: arr,
     };
 
     saveIngredient(fridgeIngredient).then(()=>{
