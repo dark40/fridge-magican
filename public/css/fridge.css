@@ -10,10 +10,11 @@
   -webkit-transform: rotate(135deg);
 }
 
-h1 {
+h2 {
   text-align: center;
 }
 
 li {
   font-size: 20px;
+  color: black;
 }
