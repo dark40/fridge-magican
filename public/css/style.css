@@ -4,13 +4,19 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-family: sans-serif;
-  }
+}
 
-  .content {
+.content {
     background: rgba(0, 0, 0, 0.8);
     color: white;
-  }
+}
 
-  .bg-highlight {
+.bg-highlight {
     background: rgb(122, 55, 55);
-  }
+}
+
+header {
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+}
