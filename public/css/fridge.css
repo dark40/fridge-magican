@@ -1,15 +1,3 @@
-.arrow {
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}
-
 h2 {
   text-align: center;
 }
@@ -24,3 +12,12 @@ ul {
   height:600px;
 }
 
+button {
+  min-height:100px;
+}
+
+.middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
