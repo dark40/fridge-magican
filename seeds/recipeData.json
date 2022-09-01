@@ -8,11 +8,19 @@
         "difficulty": "Easy"
     },
     {
-        "name": "Creamy Chicken Pasta",
-        "description": "This easy, creamy and cheesy chicken piccata pasta is perfectly finished with lemon zest. This sauce ticks all the right boxes as an quick family dinner.",
-        "instruction": "Step 1\n",
-        "time": 30,
-        "calories": 648,
+        "name": "Creamy Skillet Chicken Thighs",
+        "description": "Skillet chicken thighs with a super easy and decadent sauce.",
+        "instruction": "Step 1\nPreheat the oven to 350 degrees F (175 degrees C). Season chicken thighs with salt and pepper.\nStep 2\nSet an oven-proof skillet on high heat. When hot, add 1 tablespoon oil and chicken. Cook until well seared, about 3 minutes per side. Remove chicken to a plate and reduce heat to medium.\nStep 3\nAdd remaining 1/2 tablespoon oil, then add garlic, thyme, and rosemary. Bloom spices together for 1 minute. Pour in chicken broth, then add sun-dried tomatoes, and finally the cream. Stir well and then blend in Parmesan cheese. Bring to a light simmer. Add chicken back to the pan.\nStep 4\nTransfer to the preheated oven and bake, uncovered, until chicken is no longer pink in the center and the juices run clear, about 15 minutes. An instant-read thermometer inserted into the center should read at least 165 degrees F (74 degrees C).\nStep 5\nRemove from the oven and allow to cool slightly to let the sauce thicken before serving, about 5 minutes.",
+        "time": 45,
+        "calories": 362,
+        "difficulty": "Easy"
+    },
+    {
+        "name": "Coconut Overnight Oats",
+        "description": "These creamy coconut overnight oats have a great flavor and a boost of protein from Greek yogurt and chia seeds. I topped them with cacao nibs and almonds, but feel free to use fresh fruit or any other topping. Add honey or maple syrup if you like them sweeter.",
+        "instruction": "Step 1\nCombine oats, coconut milk beverage, Greek yogurt, chia seeds, and 1 tablespoon coconut flakes in an 8-ounce Mason jar. Stir until well combined, and cover with a lid. Refrigerate for 8 hours, or overnight.\nStep 2\nTop with ½ tablespoon coconut flakes, cacao nibs, and almonds flakes when ready to serve. Stir and enjoy.",
+        "time": 13,
+        "calories": 573,
         "difficulty": "Easy"
     }
 ]

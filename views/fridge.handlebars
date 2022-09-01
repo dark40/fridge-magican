@@ -8,7 +8,8 @@
                 <h3 id="my_fridge" data-id="{{fridgeIngredientDataClean.id}}">Your Fridge</h3>
                 <ul class="list-group stock-list">
                     {{#each fridgeIngredientDataClean.stocks as |ingredient| }}
-                    <li class="list-group-item list-group-item-action" data-id="{{ingredient.id}}">{{ingredient.name}} <i class="delete">✖</i></li>
+                    <li class="list-group-item list-group-item-action" data-id="{{ingredient.id}}">{{ingredient.name}} ✖
+                    </li>
                     {{/each}}
                 </ul>
             </div>
@@ -20,7 +21,8 @@
                 <h3>Ingredient List</h3>
                 <ul class="list-group ingredient-list">
                     {{#each allIngredientDataClean as |ingredient| }}
-                    <li class="list-group-item list-group-item-action" data-id="{{ingredient.id}}">{{ingredient.name}}</li>
+                    <li class="list-group-item list-group-item-action" data-id="{{ingredient.id}}">
+                        {{ingredient.name}}</li>
                     {{/each}}
                 </ul>
             </div>
