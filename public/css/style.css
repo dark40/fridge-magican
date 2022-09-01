@@ -1,0 +1,16 @@
+body {
+    background: url(https://images.pexels.com/photos/1660030/pexels-photo-1660030.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2) #151729;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: sans-serif;
+  }
+
+  .content {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+  }
+
+  .bg-highlight {
+    background: rgb(122, 55, 55);
+  }

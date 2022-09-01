@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { User, Fridge } = require("../../models");
-const {sendWelcomeEmail} = require("../../utils/email")
+// const {sendWelcomeEmail} = require("../../utils/email")
 
 router.post("/register", async (req, res) => {
   
@@ -14,7 +14,7 @@ router.post("/register", async (req, res) => {
     user_id: userDetails.id,
   })
 
-  sendWelcomeEmail(userDetails.email)
+  // sendWelcomeEmail(userDetails.email)
   
   req.session.save(() => {
     req.session.user_id = userDetails.id;
