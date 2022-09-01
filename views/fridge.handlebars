@@ -1,5 +1,31 @@
-<h1>Fridge Page</h1>
+<div>
+    <link rel="stylesheet" href="../../css/fridge.css" />
+    <button type="button" class="btn btn-dark back">Back</button>
+    <h1>Add Stock to Your Fridge</h1>
 
-<p>{{userFridgeDataClean.id}}</p>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-5">
+                <h2>Your Fridge</h2>
+                <ul class="list-group">
+                    {{#each fridgeIngredientDataClean as |fridgeIngredientDataClean| }}
+                    <li class="list-group-item list-group-item-action">{{fridgeIngredientDataClean.stocks}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="col-2 position-relative">
+                <p><i class="arrow left position-absolute top-50 start-50 "></i></p>
+            </div>
+            <div class="col-5">
+                <h2>Ingredient List</h2>
+                <ul class="list-group">
+                    {{#each allIngredientData as |allIngredientData| }}
+                    <li class="list-group-item list-group-item-action">{{allIngredientData.name}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<p>{{fridgeIngredientDataClean.id}}</p>
+    <script src="../js/fridge.js"></script>
+</div>
