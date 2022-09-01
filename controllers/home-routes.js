@@ -3,34 +3,37 @@ const router = require("express").Router();
 const withAuth = require("../utils/auth");
 
 // Render homepage
-router.get("/", withAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try{
-    // Get user fridge data
-    const userFridge = await Fridge.findOne({
-      where: {
-        id: req.session.user_id,
-      },
-      attributes: ["id", "user_id"],
-      include: [
-        {
-          model: User,
-          attributes: ["name", "email"],
+    // Get user fridge data if someone is logged in
+    let userFridgeClean;
+    if(req.session.user_id) {
+      const userFridge = await Fridge.findOne({
+        where: {
+          id: req.session.user_id,
         },
-        {
-          model: Ingredient,
-          through: FridgeIngredient,
-          as: "stocks",
-          attributes: ["id", "name"],
-        },
-      ],
-    });
-    if(!userFridge){
-      res.status(404).render("404");
-    }
+        attributes: ["id", "user_id"],
+        include: [
+          {
+            model: User,
+            attributes: ["name", "email"],
+          },
+          {
+            model: Ingredient,
+            through: FridgeIngredient,
+            as: "stocks",
+            attributes: ["id", "name"],
+          },
+        ],
+      });
+      if(!userFridge){
+        res.status(404).render("404");
+      }
 
-    // Clean userFridge data
-    const userFridgeClean = userFridge.get({plain: true});
-    console.log(userFridgeClean);
+      // Clean userFridge data
+      userFridgeClean = userFridge.get({plain: true});
+      console.log(userFridgeClean);
+    };
 
     // Get All recipes
     const userRecipe = await Recipe.findAll({
@@ -56,7 +59,12 @@ router.get("/", withAuth, async (req, res) => {
     console.log(userRecipeClean);
 
     // Render home page
-    res.render("home", { userFridgeClean, userRecipeClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id });   
+    if(req.session.user_id){
+      res.render("home", { userFridgeClean, userRecipeClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id }); 
+    } else {
+      res.render("home", { userRecipeClean });
+    }
+      
     } catch (err) {
       res.status(500).json(err);
     }
