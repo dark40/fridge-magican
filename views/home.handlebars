@@ -1,6 +1,24 @@
 <h1>Home page</h1>
 
-<p>{{posts}}</p>
+{{!-- <p>{{posts}}</p> --}}
+
+<div class = "fridgeContainer">
+    {{#each userFridgeClean.stocks as |ingredient|}}
+    <li>{{ingredient.name}}</li>
+    {{/each}}    
+</div>
+
+<div class = "recipeContainer">
+    {{#each userRecipeClean as |recipe|}}
+    <div class = "recipe">
+    <p>{{recipe.name}}</p>
+    <p>Time: {{recipe.time}}</p>
+    <p>Calories: {{recipe.calories}}</p>
+    <p>Difficulty: {{recipe.difficulty}}</p>
+    </div>
+{{/each}}
+</div>
+
 
 {{#if user_id}}
 <a href="/fridge/{{user_id}}">Test</a>
