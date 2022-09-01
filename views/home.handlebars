@@ -1,4 +1,39 @@
+<link rel="stylesheet" href="/css/home.css" />
+
 <h1>Home page</h1>
+
+<section class="container">
+    <div class="search">
+        <input
+            type="text"
+            id="searchText"
+            placeholder="Search Recipes"
+            autofocus
+        />
+        <button class="btn">Find</button>
+    </div>
+</section>
+
+<div id="recipe-container">
+    {{#each recipes as |recipe|}}
+        <div class="recipe">
+            <div class="recipe-title">{{recipe.name}}</div>
+            <div class="recipe-image">
+                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80" alt="Recipe">
+            </div>
+            <div class="recipe-text">
+                <ul>
+                    <li>
+                        {{recipe.time}}
+                    </li>
+                    <li>
+                        {{recipe.difficulty}}
+                    </li>
+                </ul>
+            </div>
+        </div>   
+    {{/each}} 
+</div>
 
 <p>{{posts}}</p>
 
@@ -7,3 +42,5 @@
 {{else}}
 <a href="/login">Test</a>
 {{/if}}
+
+<script src="/js/home.js"></script>
