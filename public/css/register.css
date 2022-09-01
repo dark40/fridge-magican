@@ -11,6 +11,10 @@ body {
   background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
   }
 
+.content {
+  background: none;
+}
+
 .my-container {
   width: 100%;
   min-height: 100vh;

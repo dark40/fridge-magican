@@ -19,13 +19,13 @@ recipeClean.calories
 
 <div class="row justify-content-center mb-5">
     <div class="col-3 text-center m-2">
-        <span class="badge rounded-pill text-bg-secondary p-2">
+        <span class="badge rounded-pill bg-highlight p-2">
             <i class="fa-solid fa-graduation-cap"></i>
             Difficulty: {{recipeClean.difficulty}}
         </span>
     </div>
     <div class="col-3 text-center m-2">
-        <span class="badge rounded-pill text-bg-secondary p-2">
+        <span class="badge rounded-pill bg-highlight p-2">
             <i class="fa-solid fa-clock"></i>
             Time: {{recipeClean.time}} min
         </span>
@@ -42,7 +42,7 @@ recipeClean.calories
             {{#if step}}
                 <div class="row py-3 mt-2 border-bottom">
                     <div class="col-1">
-                        <span class="px-2 py-1 bg-secondary rounded text-white"><b>{{@index}}</b></span>
+                        <span class="px-2 py-1 bg-highlight rounded"><b>{{@index}}</b></span>
                     </div>
                     <div class="col-11">
                         <span>{{step}}</span>
@@ -56,9 +56,9 @@ recipeClean.calories
         <h4 class="mb-4"><u>Ingredients</u></h4>
             {{!-- Render the ingredients list --}}
         {{#each recipeClean.ingredients as |ingredient|}}
-            <div class="row bg-secondary rounded-pill my-2">
+            <div class="row bg-highlight rounded-pill my-2">
                 <div class="col-12 text-center">
-                    <span class="text-white">{{ingredient.name}}</span>
+                    <span>{{ingredient.name}}</span>
                 </div>
             </div>
         {{/each}}
