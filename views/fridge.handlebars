@@ -1,6 +1,5 @@
 <div>
     <link rel="stylesheet" href="../../css/fridge.css" />
-    <button type="button" class="btn btn-primary save">Save</button>
     <h2>Add Stock to Your Fridge</h2>
 
     <div class="container text-center">
@@ -9,12 +8,13 @@
                 <h3>Your Fridge</h3>
                 <ul class="list-group stock-list">
                     {{#each fridgeIngredientDataClean.stocks as |ingredient| }}
-                    <li class="list-group-item list-group-item-action">{{ingredient.name}}</li>
+                    <li class="list-group-item list-group-item-action">{{ingredient.name}} <i class="delete">✖</i></li>
                     {{/each}}
                 </ul>
             </div>
             <div class="col-2 position-relative">
                 <p><i class="arrow left position-absolute top-50 start-50 "></i></p>
+                <button type="button" class="btn btn-primary save">Save</button>
             </div>
             <div class="col-5">
                 <h3>Ingredient List</h3>
