@@ -23,7 +23,7 @@ const addIngredient = (event) => {
     const ingredient_id = target.getAttribute("data-id");
 
     let newIngredient = document.createElement('li');
-    newIngredient.innerHTML = `${target.innerHTML}<i class="delete">✖</i>`
+    newIngredient.innerHTML = `${target.innerHTML} ✖`
     newIngredient.setAttribute("class", "list-group-item list-group-item-action")
     newIngredient.setAttribute("data-id", ingredient_id);
 
