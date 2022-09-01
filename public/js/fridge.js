@@ -1,40 +1,70 @@
 const saveBtn = document.querySelector(".save");
 const ingredient = document.querySelector(".ingredient-list");
 const stock = document.querySelector(".stock-list");
+const myFridge = document.querySelector("#my_fridge");
+const fridge_id = myFridge.getAttribute("data-id");
 
 let activeIngredient = {};
 
-const saveIngredient = (ingredient) => 
-    fetch('/api/fridge/:id', {
+const saveIngredient = (fridgeIngredient) => 
+    fetch('/api/fridge/' + fridgeIngredient.id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(ingredient),
+        body: JSON.stringify(fridgeIngredient.ingredient_id),
     });
 
-    // fridge_id, ingredient_id; 
 
 const addIngredient = (event) => {
     event.preventDefault();
 
-    const targetIngredient = event.target;
+    const target = event.target;
+    const ingredient_id = target.getAttribute("data-id");
 
-    // Check if ingredient is already in the list. If not, add to stocks.
-    for (let i = 0; i < AllIngredientsData.length; i++) {
-        if (ingredientName === AllIngredientsData[i]) {
-            break;
-        } else {
-            let fridge_id = document.location.search;
-            let ingredient_id = AllIngredients[i].id;
+    let newIngredient = document.createElement('li');
+    newIngredient.innerHTML = `${target.innerHTML}<i class="delete">✖</i>`
+    newIngredient.setAttribute("class", "list-group-item list-group-item-action")
+    newIngredient.setAttribute("data-id", ingredient_id);
 
-                }
-            });
-        }
+    stock.appendChild(newIngredient);
+
+}
+
+const removeIngredient = (event) => {
+    event.preventDefault();
+
+    const target = event.target;
+    target.remove();
+
+}
+
+const handleIngredientSave = () => {
+    
+    const children = stock.children;
+
+    let arr = [];
+
+    for(let i = 0; i < children.length; i++) {
+        let child_id = children[i].getAttribute("data-id");
+
+        arr.push(child_id);
     }
+
+    const fridgeIngredient = {
+        id: fridge_id,
+        ingredient_id: arr,
+    };
+
+    saveIngredient(fridgeIngredient).then(()=>{
+        location.reload();
+    })
+    
+
+
 }
 
 
-saveBtn.addEventListener("click", );
-// ingredient.addEventListener("click", addIngredient);
-// stock.addEventListener("click", removeIngredient);
+saveBtn.addEventListener("click",handleIngredientSave);
+ingredient.addEventListener("click", addIngredient);
+stock.addEventListener("click", removeIngredient);
