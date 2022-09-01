@@ -8,21 +8,23 @@ router.get("/", async (req, res) => {
     // Get user fridge data if someone is logged in
     let userFridgeClean;
     if(req.session.user_id) {
-      const userFridge = await Fridge.findOne({
+      const userFridge = await User.findOne({
         where: {
           id: req.session.user_id,
         },
-        attributes: ["id", "user_id"],
+        attributes: ["name", "email"],
         include: [
           {
-            model: User,
-            attributes: ["name", "email"],
-          },
-          {
-            model: Ingredient,
-            through: FridgeIngredient,
-            as: "stocks",
-            attributes: ["id", "name"],
+            model: Fridge,
+            attributes: ["id", "user_id"],
+            include: [
+              {
+                model: Ingredient,
+                through: FridgeIngredient,
+                as: "stocks",
+                attributes: ["id", "name"],
+              }
+            ]
           },
         ],
       });

@@ -94,3 +94,9 @@ body {
   color: #ea4335;
   text-decoration: none;
 }
+
+#message {
+  color: #fff;
+  font-size: 15px;
+  display: none;
+}
