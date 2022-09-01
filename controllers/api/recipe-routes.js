@@ -13,7 +13,6 @@ router.get("/", (req, res) => {
       "calories",
       "difficulty",
     ],
-    // order: [["created_at", "DESC"]],
     include: [
       {
         model: Ingredient,

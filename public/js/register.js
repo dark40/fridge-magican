@@ -27,7 +27,7 @@ password.addEventListener("input", () => {
   }
 });
 
-
+// Register user and redirect to the home page with loggin in status
 registerButton.addEventListener('click', (event) => {
   event.preventDefault();
   
@@ -45,6 +45,6 @@ registerButton.addEventListener('click', (event) => {
     body: JSON.stringify(userData),
   }).then((res) => res.json())
   .then((data) => {
-    window.location.replace("/");
+    document.location.replace("/");
   })
 });

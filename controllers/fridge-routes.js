@@ -1,94 +1,51 @@
-const { Fridge, Ingredient, Recipe, User } = require("../models");
+const { Fridge, Ingredient, User, FridgeIngredient } = require("../models");
 const router = require("express").Router();
 const withAuth = require("../utils/auth");
 
-router.get("/", async (req, res) => {
-  Fridge.findAll({
-    attributes: ["id"],
-    include: [
-      {
-        model: User,
-        attributes: ["name", "email"],
-      },
-      {
-        model: Ingredient,
-        attributes: ["id", "name"],
-        include: {
-          model: User,
-          attributes: ["email", "name"],
-        },
-      },
-    ],
-  })
-    .then((data) => {
-      const posts = data.map((post) => post.get({ plain: true }));
-      res.render("home", { posts, logged_in: req.session.logged_in });
-    })
-    .catch((err) => {
-      res.status(500).json(err);
+router.get("/:id", withAuth, async (req, res) => {
+  try {
+    // Get the fridge data based on the user that's logged in
+    const userFridgeData = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Fridge,
+        }
+      ]
     });
-});
+    
+    // Check that data is returned from the database
+    if(!userFridgeData) {
+      res.status(404).render("404");
+    }
 
-router.get("/edit/:id", withAuth, (req, res) => {
-  Fridge.findOne({
-    where: {
-      id: req.params.id,
-    },
-    attributes: ["id"],
-    include: [
-      {
-        model: User,
-        attributes: ["name", "email"],
-      },
-      {
-        model: Ingredient,
-        attributes: ["id", "name"],
-        include: {
-          model: User,
-          attributes: ["email", "name"],
-        },
-      },
-    ],
-  })
-    .then((data) => {
-      const post = data.get({ plain: true });
-      res.render("edit-post", { post, logged_in: req.session.logged_in });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
+    // Clean the user fridge data
+    const userFridgeDataClean = userFridgeData.get({ plain: true });
+  
+    // Get fridge ingredient data
+    const fridgeIngredientData = await Fridge.findByPk(userFridgeDataClean.fridge.id, {
+      include: [
+        {
+          model: Ingredient,
+          through: FridgeIngredient,
+          as: 'stocks'
+        }
+      ]
     });
-});
 
-router.get("/show/:id", withAuth, (req, res) => {
-  Fridge.findOne({
-    where: {
-      id: req.params.id,
-    },
-    attributes: ["id"],
-    include: [
-      {
-        model: User,
-        attributes: ["name", "email"],
-      },
-      {
-        model: Ingredient,
-        attributes: ["id", "name"],
-        include: {
-          model: User,
-          attributes: ["email", "name"],
-        },
-      },
-    ],
-  })
-    .then((data) => {
-      const post = data.get({ plain: true });
-      res.render("single-post", { post, logged_in: req.session.logged_in });
+    // Clean the fridge ingredient data
+    const fridgeIngredientDataClean = fridgeIngredientData.get({ plain: true });
+    
+    const allIngredientData = await Ingredient.findAll({
+      attributes: ["id", "name"]
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  
+      const allIngredientDataClean = allIngredientData.map((data) => data.get({ plain: true }));
+    
+    // Render the page
+    res.render("fridge", { userFridgeDataClean, fridgeIngredientDataClean, allIngredientDataClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

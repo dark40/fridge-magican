@@ -1,95 +1,33 @@
-const { Fridge, Ingredient, Recipe, User } = require("../models");
+const { Fridge, Ingredient, Recipe, RecipeIngredient } = require("../models");
 const router = require("express").Router();
 const withAuth = require("../utils/auth");
 
-router.get("/", async (req, res) => {
-  Recipe.findAll({
-    attributes: [
-      "id",
-      "name",
-      "description",
-      "instruction",
-      "time",
-      "calories",
-      "difficulty",
-    ],
-    order: [["created_at", "DESC"]],
-    include: [
-      {
-        model: Ingredient,
-        attributes: ["id", "name"],
-      },
-    ],
-  })
-    .then((data) => {
-      const posts = data.map((post) => post.get({ plain: true }));
-      res.render("recipe", { posts, logged_in: req.session.logged_in });
-    })
-    .catch((err) => {
-      res.status(500).json(err);
+// add in with auth middleware
+router.get("/:id", async (req, res) => {
+  try {
+    const chosenRecipe = await Recipe.findByPk(req.params.id, {
+      include: [
+        {
+          model: Ingredient,
+          through: RecipeIngredient,
+          as: 'ingredients'
+        },
+      ],
     });
-});
 
-router.get("/edit/:id", withAuth, (req, res) => {
-  Recipe.findOne({
-    where: {
-      id: req.params.id,
-    },
-    attributes: [
-      "id",
-      "name",
-      "description",
-      "instruction",
-      "time",
-      "calories",
-      "difficulty",
-    ],
-    include: [
-      {
-        model: Ingredient,
-        attributes: ["id", "name"],
-      },
-    ],
-  })
-    .then((data) => {
-      const post = data.get({ plain: true });
-      res.render("edit-recipe", { post, logged_in: req.session.logged_in });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+    if(!chosenRecipe) {
+      res.status(404).render("404");
+    }
 
-router.get("/show/:id", withAuth, (req, res) => {
-  Recipe.findOne({
-    where: {
-      id: req.params.id,
-    },
-    attributes: [
-      "id",
-      "name",
-      "description",
-      "instruction",
-      "time",
-      "calories",
-      "difficulty",
-    ],
-    include: [
-      {
-        model: Ingredient,
-        attributes: ["id", "name"],
-      },
-    ],
-  })
-    .then((data) => {
-      const post = data.get({ plain: true });
-      res.render("show-recipe", { post, logged_in: req.session.logged_in });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    const recipeClean = chosenRecipe.get({ plain: true });
+
+    // Split recipe steps into an array
+    const rstepsArray = recipeClean.instruction.split(/Step \d/);
+
+    res.render("recipe", { recipeClean, rstepsArray, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id });
+  } catch {
+    res.status(500).json("Internal Server Error");
+  }
 });
 
 module.exports = router;

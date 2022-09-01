@@ -1,30 +1,21 @@
-const sendEmail = (email) => {
+const sendEmail = (to, subject, text) => {
     const nodemailer = require('nodemailer');
 
 
     let transporter = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
         auth: {
-            user: "b5ad1032dccb59",
-            pass: "c990b2b06fa496"
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
         }
     });
 
     let mailOptions = {
         from: 'fridge.magician@gmail.com',
-        to: email,
-        subject: 'Welcome to Fridge Magician',
-        text: `Hi,
-
-    Welcome to Fridge Magician. We’re thrilled to see you here!
-    
-    We’re confident that Fridge Magician will help you organise your fridge stock in no time.
-    
-    You can find more of our guides here to learn more about Fridge Magician.
-    
-    Take care!
-    Fridge Magician Development Team`
+        to,
+        subject,
+        text
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -35,5 +26,20 @@ const sendEmail = (email) => {
         }
     });
 }
+const sendWelcomeEmail = (to) => {
+    const subject = "Welcome to Fridge Magician"
+    const text = `Hi,
 
-module.exports = sendEmail;
+    Welcome to Fridge Magician. We’re thrilled to see you here!
+    
+    We’re confident that Fridge Magician will help you organise your fridge stock in no time.
+    
+    You can find more of our guides here to learn more about Fridge Magician.
+    
+    Take care!
+    Fridge Magician Development Team`
+    sendEmail(to, subject, text)
+}
+module.exports = { 
+    sendWelcomeEmail
+};
