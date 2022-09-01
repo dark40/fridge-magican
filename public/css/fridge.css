@@ -19,3 +19,8 @@ li {
   color: black;
 }
 
+ul {
+  overflow: auto;
+  height:600px;
+}
+
