@@ -3,7 +3,7 @@ const router = require("express").Router();
 const withAuth = require("../utils/auth");
 
 // add in with auth middleware
-router.get("/:id", async (req, res) => {
+router.get("/:id", withAuth, async (req, res) => {
   try {
     const chosenRecipe = await Recipe.findByPk(req.params.id, {
       include: [

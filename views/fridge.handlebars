@@ -1,26 +1,26 @@
 <div>
     <link rel="stylesheet" href="../../css/fridge.css" />
-    <button type="button" class="btn btn-dark back">Back</button>
-    <h1>Add Stock to Your Fridge</h1>
+    <h2>Add Stock to Your Fridge</h2>
 
     <div class="container text-center">
         <div class="row">
             <div class="col-5">
-                <h2>Your Fridge</h2>
-                <ul class="list-group">
-                    {{#each fridgeIngredientDataClean as |fridgeIngredientDataClean| }}
-                    <li class="list-group-item list-group-item-action">{{fridgeIngredientDataClean.stocks}}</li>
+                <h3 id="my_fridge" data-id="{{fridgeIngredientDataClean.id}}">Your Fridge</h3>
+                <ul class="list-group stock-list">
+                    {{#each fridgeIngredientDataClean.stocks as |ingredient| }}
+                    <li class="list-group-item list-group-item-action" data-id="{{ingredient.id}}">{{ingredient.name}} <i class="delete">✖</i></li>
                     {{/each}}
                 </ul>
             </div>
             <div class="col-2 position-relative">
                 <p><i class="arrow left position-absolute top-50 start-50 "></i></p>
+                <button type="button" class="btn btn-primary save">Save</button>
             </div>
             <div class="col-5">
-                <h2>Ingredient List</h2>
-                <ul class="list-group">
-                    {{#each allIngredientData as |allIngredientData| }}
-                    <li class="list-group-item list-group-item-action">{{allIngredientData.name}}</li>
+                <h3>Ingredient List</h3>
+                <ul class="list-group ingredient-list">
+                    {{#each allIngredientDataClean as |ingredient| }}
+                    <li class="list-group-item list-group-item-action" data-id="{{ingredient.id}}">{{ingredient.name}}</li>
                     {{/each}}
                 </ul>
             </div>

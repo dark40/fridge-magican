@@ -12,6 +12,10 @@ body {
   height: 100vh;
 }
 
+.content {
+  background: none;
+}
+
 #my-container {
   position: absolute;
   top: 10%;
