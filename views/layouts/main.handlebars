@@ -28,12 +28,18 @@
               <a class="navbar-brand" href="/">Fridge Magician</a>
             </h1>
           </div>
-          <div class="col-3 text-center">
-            {{#if logged_in}}
-            <a class="nav-link active" aria-current="page" href="/fridge/{{user_id}}"><i class="fa-solid fa-user mx-2"></i>{{current_user}}</a>
-            {{else}}
-            <a class="nav-link active" aria-current="page" href="/login">Login</a>
-            {{/if}}
+          {{#if logged_in}}
+            <div class="col-3 text-center">
+              <a class="nav-link active" aria-current="page" href="/fridge/{{user_id}}"><i class="fa-solid fa-user mx-2"></i>{{current_user}}</a>
+            </div>
+          {{else}}
+            <div class="col-1 text-center border-white">
+              <a class="nav-link active" aria-current="page" href="/login">Login</a>
+            </div>
+            <div class="col-1 text-center">
+              <a class="nav-link active" aria-current="page" href="/register"> Register</a>
+            </div>
+          {{/if}}
           </div>
         </div>
       </div>
