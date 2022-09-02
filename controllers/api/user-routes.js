@@ -4,10 +4,32 @@ const {sendWelcomeEmail} = require("../../utils/email")
 
 router.post("/register", async (req, res) => {
   
+  const {name, email, password, password_confirmation, terms_confirmed} = req.body
+  const errors = []
+  if(!name) {
+    errors.push("Name is required")
+  }
+  if(!email) {
+    errors.push("Email is required")
+  }
+  if(password.length < 8 ) {
+    errors.push("Password must be min. 8 charachters")
+  }
+  if(password !== password_confirmation) {
+    errors.push("Password confirmation doesn't match")
+  }
+  if(!terms_confirmed) {
+    errors.push("Terms & Conditions must be accepted")
+  }
+
+  if(errors.length) {
+     res.status(400).json({errors})
+    return;
+  }
   const userDetails = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
+    name,
+    email,
+    password,
   })
 
   const fridgeDetail = await Fridge.create({

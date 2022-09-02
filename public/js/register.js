@@ -1,10 +1,12 @@
 let password = document.getElementById("password");
+let passwordConfirmation = document.getElementById("password-confirmation");
+let termsCheckbox = document.getElementById("terms");
 let message = document.getElementById("message");
 let strength = document.getElementById("strength");
-const registerButton = document.getElementById("register-now");
-const username = document.getElementById('username');
-const email = document.getElementById('email');
-
+const regErrors = document.getElementById("reg-errors");
+const registerForm = document.getElementById("register-form");
+const username = document.getElementById("username");
+const email = document.getElementById("email");
 
 password.addEventListener("input", () => {
   if (password.value.length > 0) {
@@ -28,23 +30,40 @@ password.addEventListener("input", () => {
 });
 
 // Register user and redirect to the home page with loggin in status
-registerButton.addEventListener('click', (event) => {
+registerForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  
+
   const userData = {
     name: username.value,
     email: email.value,
-    password: password.value
+    password: password.value,
+    password_confirmation: passwordConfirmation.value,
+    terms_confirmed: termsCheckbox.checked,
   };
-  
-  fetch('/api/users/register', {
-    method: 'POST',
+
+  fetch("/api/users/register", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
-  }).then((res) => res.json())
-  .then((data) => {
-    document.location.replace("/");
   })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.hasOwnProperty("errors")) {
+        return showErrors(data.errors);
+      }
+      document.location.replace("/");
+    });
 });
+
+const showErrors = (errors) => {
+  regErrors.innerHTML = "";
+  let errorsList = "";
+  for (i = 0; i < errors.length; i++) {
+    errorsList += `<li>${errors[i]}</li>`;
+  }
+  regErrors.innerHTML = errorsList;
+  regErrors.classList.remove("d-none") 
+};
+
