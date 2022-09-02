@@ -9,21 +9,36 @@
   <link rel="stylesheet" href="/css/login.css" />
 
   <h1 class="heading">Register Now!</h1>
-  <div class="input-box">
-    <i class="fa-solid fa-user"></i>
-    <input type="text" id="username" placeholder="Your Name"/>
-  </div>
-  <div class="input-box">
-    <i class="fa fa-envelope"></i>
-    <input type="email" id="email" placeholder="Your Email"/>
-  </div>
-  <div class="input-box">
-    <i class="fa fa-key"></i>
-    <input type="password" placeholder="Password" id="password" />
-  </div>
-  <p id="message" class="login-msg mx-auto">Password is <span id="strength"></span></p>
+  
+  <form class="signup-box" id="register-form">
+    <ul class="alert list-unstyled alert-danger d-none" id="reg-errors"></ul>
 
-  <button type="submit" class="login-btn" id="register-now"> Register Now</button>
+    <div class="input-box">
+      <i class="fa-solid fa-user"></i>
+      <input type="text" id="username" placeholder="Your Name" />
+    </div>
+    <div class="input-box">
+      <i class="fa fa-envelope"></i>
+      <input type="email" id="email" placeholder="Your Email" />
+    </div>
+    <div class="input-box">
+      <i class="fa fa-key"></i>
+      <input type="password" placeholder="Password" id="password" />
+    </div>
+    <div class="input-box">
+      <i class="fa fa-key"></i>
+      <input
+        type="password"
+        placeholder="Confirm Your Password"
+        id="password-confirmation"
+      />
+    </div>
+    <p id="message" class="login-msg mx-auto">Password is
+      <span id="strength"></span></p>
+      <input type="checkbox" id="terms" />
+        <label for="terms">I accept the terms & conditions</label>
+    <button type="submit" class="login-btn"> Register Now</button>
+  </form>
   <p class="login-msg mx-auto">
     Already have an account?
     <a href="/login">Login Now</a>

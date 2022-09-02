@@ -8,6 +8,7 @@ li {
 }
 
 ul {
+  cursor: pointer;
   overflow: auto;
   height:600px;
 }

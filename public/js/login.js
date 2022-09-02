@@ -29,11 +29,12 @@ const loginFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace("/");
     } else {
-      alert(response.statusText);
+      document.getElementById("login-errors").classList.remove("d-none")
+
     }
   }
 };
 
 document
-  .querySelector("#login-now")
-  .addEventListener("click", loginFormHandler);
+  .querySelector("#login-form")
+  .addEventListener("submit", loginFormHandler);
