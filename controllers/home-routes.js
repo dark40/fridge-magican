@@ -7,12 +7,13 @@ router.get("/", async (req, res) => {
   try{
     // Get user fridge data if someone is logged in
     let userFridgeClean;
+    
     if(req.session.user_id) {
       const userFridge = await User.findOne({
         where: {
           id: req.session.user_id,
         },
-        attributes: ["name", "email"],
+        attributes: ["id", "name", "email"],
         include: [
           {
             model: Fridge,
@@ -33,8 +34,9 @@ router.get("/", async (req, res) => {
       }
 
       // Clean userFridge data
+      console.log(userFridge + "userFridge");
       userFridgeClean = userFridge.get({plain: true});
-      console.log(userFridgeClean);
+      console.log(userFridgeClean +"HELLOOOO");
     };
 
     // Get All recipes
@@ -45,6 +47,7 @@ router.get("/", async (req, res) => {
         "time",
         "calories",
         "difficulty",
+        "image",
       ],
       include: [
         {
@@ -58,11 +61,12 @@ router.get("/", async (req, res) => {
 
     // Clean Recipe data
     const userRecipeClean = userRecipe.map ((userRecipe) => userRecipe.get({plain: true}));
-    console.log(userRecipeClean);
+    // console.log(userRecipeClean);
 
     // Render home page
     if(req.session.user_id){
-      res.render("home", { userFridgeClean, userRecipeClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id }); 
+      res.render("home", { userRecipeClean, userFridgeClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id }); 
+      console.log("log in working showing fridge?");
     } else {
       res.render("home", { userRecipeClean });
     }

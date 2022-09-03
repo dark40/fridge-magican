@@ -34,6 +34,10 @@ Recipe.init(
         difficulty: {
             type: DataTypes.ENUM('Easy', 'Medium', 'Hard'),
             allowNull: false,
+        },
+        image: {
+        type: DataTypes.STRING,
+        allowNull: true,
         }
     },
     {
@@ -43,6 +47,7 @@ Recipe.init(
         underscored: true,
         modelName: 'recipe',
     }
+    
 )
 
 module.exports = Recipe;
