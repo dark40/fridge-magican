@@ -54,7 +54,18 @@ const handleIngredientSave = () => {
     };
 
     saveIngredient(fridgeIngredient).then(()=>{
-        location.reload();
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your ingredients have been saved',
+            showConfirmButton: false,
+            timer: 2500
+          
+          })
+          .then(() => {
+            location.reload();
+          });
+        
     })
 }
 
