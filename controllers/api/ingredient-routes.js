@@ -5,22 +5,22 @@ const withAuth = require("../../utils/auth");
 router.get("/", (req, res) => {
   Ingredient.findAll({
     attributes: ["id", "name"],
-    include: [
-      {
-        model: Recipe,
-        through: RecipeIngredient,
-        as: 'recipes',
-        attributes: [
-          "id",
-          "name",
-          "description",
-          // "instruction",
-          "time",
-          "calories",
-          "difficulty",
-        ],
-      },
-    ],
+    // include: [
+    //   {
+    //     model: Recipe,
+    //     through: RecipeIngredient,
+    //     as: 'recipes',
+    //     attributes: [
+    //       "id",
+    //       "name",
+    //       "description",
+    //       // "instruction",
+    //       "time",
+    //       "calories",
+    //       "difficulty",
+    //     ],
+    //   },
+    // ],
   })
     .then((data) => res.json({ data: data}))
     .catch((err) => {
