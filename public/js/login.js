@@ -32,7 +32,7 @@ const loginFormHandler = async (event) => {
 Swal.fire({
   title: 'Logging you in safely... <br> Please be patient!',
   html: 'You will be logged in <strong></strong> seconds.',
-  timer: 5000,
+  timer: 3000,
   timerProgressBar: true,
   didOpen: () => {
     Swal.showLoading()
