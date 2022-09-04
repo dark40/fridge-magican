@@ -5,40 +5,6 @@ const withAuth = require("../utils/auth");
 // Render homepage
 router.get("/", async (req, res) => {
   try{
-    // Get user fridge data if someone is logged in
-    let userFridgeClean;
-    
-    if(req.session.user_id) {
-      const userFridge = await User.findOne({
-        where: {
-          id: req.session.user_id,
-        },
-        attributes: ["id", "name", "email"],
-        include: [
-          {
-            model: Fridge,
-            attributes: ["id", "user_id"],
-            include: [
-              {
-                model: Ingredient,
-                through: FridgeIngredient,
-                as: "stocks",
-                attributes: ["id", "name"],
-              }
-            ]
-          },
-        ],
-      });
-      if(!userFridge){
-        res.status(404).render("404");
-      }
-
-      // Clean userFridge data
-      console.log(userFridge + "userFridge");
-      userFridgeClean = userFridge.get({plain: true});
-      console.log(userFridgeClean +"HELLOOOO");
-    };
-
     // Get All recipes
     const userRecipe = await Recipe.findAll({
       attributes: [
@@ -61,10 +27,50 @@ router.get("/", async (req, res) => {
 
     // Clean Recipe data
     const userRecipeClean = userRecipe.map ((userRecipe) => userRecipe.get({plain: true}));
-    // console.log(userRecipeClean);
+    
+    // Get user fridge data if someone is logged in
+    if(req.session.user_id) {
+      const userFridge = await User.findOne({
+        where: {
+          id: req.session.user_id,
+        },
+        attributes: ["id", "name", "email"],
+        include: [
+          {
+            model: Fridge,
+            attributes: ["id", "user_id"],
+            include: [
+              {
+                model: Ingredient,
+                through: FridgeIngredient,
+                as: "stocks",
+                attributes: ["name"],
+              }
+            ]
+          },
+        ],
+      });
+      if(!userFridge){
+        res.status(404).render("404");
+      }
 
-    // Render home page
-    if(req.session.user_id){
+      // Clean userFridge data
+      const userFridgeClean = userFridge.get({plain: true});
+
+      userRecipeClean.sort((recipe1, recipe2) => {
+        let recipe1IngredientCount = 0;
+        let recipe2IngredientCount = 0;
+        userFridgeClean.fridge.stocks.forEach(ingredient => {
+          if (!!recipe1.ingredients.find(recipeIngredient => recipeIngredient.name === ingredient.name)) {
+            recipe1IngredientCount++;
+          }
+          if (!!recipe2.ingredients.find(recipeIngredient => recipeIngredient.name === ingredient.name)) {
+            recipe2IngredientCount++;
+          }
+        })
+        return recipe2IngredientCount - recipe1IngredientCount;
+      })
+
       res.render("home", { userRecipeClean, userFridgeClean, logged_in: req.session.logged_in, current_user: req.session.email, user_id: req.session.user_id }); 
       console.log("log in working showing fridge?");
     } else {

@@ -88,7 +88,7 @@
     height: calc(100vh - (var(--header-height) + var(--search-height) + 20px));
     overflow: hidden;
     overflow-y: auto;
-    /* width: 70%; */
+    width: 70%;
   }
   
   .recipe {

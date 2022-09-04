@@ -6,7 +6,7 @@ const Recipe = require('./Recipe');
 const RecipeIngredient = require('./RecipeIngredient');
 const FridgeIngredient = require('./FridgeIngredient');
 
- User.hasOne(Fridge, {
+User.hasOne(Fridge, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 });
@@ -16,7 +16,7 @@ const FridgeIngredient = require('./FridgeIngredient');
 });
 
 // Recipe belongsToMany Ingredients (through RecipeIngredient)
- Recipe.belongsToMany(Ingredient, {
+Recipe.belongsToMany(Ingredient, {
     through: {
         model: RecipeIngredient,
         unique: false
@@ -24,7 +24,7 @@ const FridgeIngredient = require('./FridgeIngredient');
     as: 'ingredients'
 });
 
- Ingredient.belongsToMany(Recipe, {
+Ingredient.belongsToMany(Recipe, {
     through: {
         model: RecipeIngredient,
         unique: false
@@ -41,7 +41,7 @@ Fridge.belongsToMany(Ingredient, {
     as: 'stocks'
 });
 
- Ingredient.belongsToMany(Fridge, {
+Ingredient.belongsToMany(Fridge, {
     through: {
         model: FridgeIngredient,
         unique: false
@@ -49,4 +49,6 @@ Fridge.belongsToMany(Ingredient, {
     as: 'fridges'
 });
 
+module.exports = { User, Fridge, Ingredient, Recipe, RecipeIngredient, FridgeIngredient }; 
  module.exports = { User, Fridge, Ingredient, Recipe, RecipeIngredient, FridgeIngredient }; 
+module.exports = { User, Fridge, Ingredient, Recipe, RecipeIngredient, FridgeIngredient }; 

@@ -38,11 +38,11 @@
 <div id = "fridge-container">
     <h2>My Fridge</h2>
     <div class = "fridge">
-        {{#each userFridgeClean.fridge.dataValues.stocks as |ingredient|}}
         <ul>
+        {{#each userFridgeClean.fridge.stocks as |ingredient|}}
             <li>{{ingredient.name}}</li>
-        </ul>
         {{/each}}
+        </ul>
     </div>
 </div>
 
