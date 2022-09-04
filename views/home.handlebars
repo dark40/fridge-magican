@@ -19,7 +19,7 @@
         <div class="recipe">
             <div class="recipe-title">{{recipe.name}}</div>
             <div class="recipe-image">
-                <img src="{{recipe.image}}" alt="Recipe">
+                <a href="/recipe/{{recipe.id}}"><img src="{{recipe.image}}" alt="Recipe"></a>
             </div>
             <div class="recipe-text">
                 <ul>
@@ -35,6 +35,7 @@
     {{/each}} 
 </div>
 
+{{#if logged_in}}
 <div id = "fridge-container">
     <h2>My Fridge</h2>
     <div class = "fridge">
@@ -45,6 +46,7 @@
         </ul>
     </div>
 </div>
+{{/if}}
 
 <p>{{posts}}</p>
 
