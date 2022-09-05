@@ -14,10 +14,6 @@ ul {
   max-height:600px;
 }
 
-button {
-  min-height:100px;
-}
-
 .middle {
   display: flex;
   align-items: center;

@@ -109,7 +109,6 @@ router.get("/logout", async (req, res) => {
       req.session.destroy(() => {
         res.status(204).end();
       })};
-    // res.render("login", {});
   } catch (err) {
     res.status(500).json(err);
   }

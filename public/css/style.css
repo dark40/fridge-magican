@@ -24,3 +24,7 @@ header {
 .nav-link:hover {
     color: rgb(122, 55, 55);
 }
+
+#logout:hover {
+    cursor: pointer;
+}
