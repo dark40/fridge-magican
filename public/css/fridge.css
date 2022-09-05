@@ -10,11 +10,8 @@ li {
 ul {
   cursor: pointer;
   overflow: auto;
-  height:600px;
-}
-
-button {
-  min-height:100px;
+  height:auto;
+  max-height:600px;
 }
 
 .middle {
