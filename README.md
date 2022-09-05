@@ -39,9 +39,6 @@ npm run seed
 ```
 Note that the server must be run at least once for the seed data to be populated as the initial run of the server will generate the database tables. 
 
-A demonstration of the application is provided within the walkthrough video:
-***INSERT WALKTHROUGH VIDEO***
-
 ## Collaborators
 The following personnel have been involved in the devleopment of this application:
 - Craig Skicko
