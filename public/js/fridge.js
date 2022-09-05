@@ -1,58 +1,94 @@
-// const saveBtn = document.querySelector(".save");
-// const ingredient = document.querySelector(".ingredient-list");
-// const stock = document.querySelector(".stock-list");
-// const AllIngredients = require("../../seeds/ingredientData.json");
-// const fridgeIngredient = require("../../seeds/fridgeIngredientData.json");
-// const fs = require("fs");
+const saveBtn = document.querySelector(".save");
+const ingredient = document.querySelector(".ingredient-list");
+const stock = document.querySelector(".stock-list");
+const myFridge = document.querySelector("#my_fridge");
+const fridge_id = myFridge.getAttribute("data-id");
 
-// const AllIngredientsData = JSON.parse(AllIngredients).name;
+let activeIngredient = {};
 
-// const handleSave = (event) => {
-//     event.preventDefault();
-
-    // add render 
-// }
-
-// const addIngredient = (event) => {
-//     event.preventDefault();
-
-//     const targetIngredient = event.target;
-//     const ingredientName = JSON.parse(targetIngredient.parentElement.getAttribute('name'))
-
-//     // Check if ingredient is already in the list. If not, add to stocks.
-//     for (let i = 0; i < AllIngredientsData.length; i++) {
-//         if (ingredientName === AllIngredientsData[i]) {
-//             break;
-//         } else {
-//             let fridge_id = document.location.search;
-//             let ingredient_id = AllIngredients[i].id;
-
-//             fs.readFile(fridgeIngredient, 'utf8', function readFileCallback(err, data) {
-//                 if (err) {
-//                     console.log(err);
-//                 } else {
-//                     let obj = {
-//                         table: []
-//                     };
-//                     obj = JSON.parse(data); //now it an object
-//                     obj.table.push({ fridge_id: fridge_id, ingredient_id: ingredient_id }); //add some data
-//                     json = JSON.stringify(obj); //convert it back to json
-//                     fs.writeFile(fridgeIngredient, json, 'utf8', callback); // write it back 
-//                 }
-//             });
-//         }
-//     }
-// }
-
-// const removeIngredient = (event) => {
-//     event.preventDefault();
+const saveIngredient = (fridgeIngredient) => 
+    fetch('/api/fridge/' + fridgeIngredient.id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fridgeIngredient)
+    });
 
 
+const addIngredient = (event) => {
+    event.preventDefault();
 
-// }
+    const target = event.target;
+    const ingredient_id = target.getAttribute("data-id");
+
+    let newIngredient = document.createElement('li');
+    newIngredient.innerHTML = `${target.innerHTML} ✖`
+    newIngredient.setAttribute("class", "list-group-item list-group-item-action")
+    newIngredient.setAttribute("data-id", ingredient_id);
+
+    stock.appendChild(newIngredient);
+
+}
+
+const removeIngredient = (event) => {
+    event.preventDefault();
+
+    const target = event.target;
+    target.remove();
+
+}
+
+const handleIngredientSave = () => {
+    
+    const children = stock.children;
+    let arr = [];
+    for(let i = 0; i < children.length; i++) {
+        let child_id = children[i].getAttribute("data-id");
+        arr.push(child_id);
+    }
+
+    const fridgeIngredient = {
+        id: fridge_id,
+        ingredients: arr,
+    };
+
+    saveIngredient(fridgeIngredient).then(()=>{
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your ingredients have been saved',
+            showConfirmButton: false,
+            timer: 2500
+          
+          })
+          .then(() => {
+            location.reload();
+          });
+        
+    })
+}
 
 
+saveBtn.addEventListener("click",handleIngredientSave);
+ingredient.addEventListener("click", addIngredient);
+stock.addEventListener("click", removeIngredient);
 
-// saveBtn.addEventListener("click", handleSave);
-// ingredient.addEventListener("click", addIngredient);
-// stock.addEventListener("click", removeIngredient);
+function searchIngredient() {
+    // Declare variables
+    let input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = ingredient
+    li = ul.getElementsByTagName('li');
+  
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      txtValue = li[i].textContent || li[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }

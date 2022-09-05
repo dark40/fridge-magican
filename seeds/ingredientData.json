@@ -21,7 +21,97 @@
         "name": "tomatoes"
     },
     {
-        "name": "Cheddar cheese"
+        "name": "cheddar cheese"
+    },
+    {
+        "name": "skinless chicken thighs"
+    },
+    {
+        "name": "dried thyme"
+    },
+    {
+        "name": "dried rosemary"
+    },
+    {
+        "name": "chicken broth"
+    },
+    {
+        "name": "heavy cream"
+    },
+    {
+        "name": "parmesan cheese"
+    },
+    {
+        "name": "oats"
+    },
+    {
+        "name": "coconut milk"
+    },
+    {
+        "name": "vanilla Greek yogurt"
+    },
+    {
+        "name": "chia seeds"
+    },
+    {
+        "name": "shredded coconut"
+    },
+    {
+        "name": "cacao nibs"
+    },
+    {
+        "name": "sliced almonds"
+    },
+    {
+        "name": "brocolli"
+    },
+    {
+        "name": "peas"
+    },
+    {
+        "name": "potato"
+    },
+    {
+        "name": "paprika"
+    },
+    {
+        "name": "olive oil"
+    },
+    {
+        "name": "pumpkin"
+    },
+    {
+        "name": "eggs"
+    },
+    {
+        "name": "spaghetti pasta"
+    },
+    {
+        "name": "bacon"
+    },
+    {
+        "name": "olive oil"
+    },
+    {
+        "name": "parsley"
+    },
+    {
+        "name": "red onion"
+    },
+    {
+        "name": "apple cider vinegar"
+    },
+    {
+        "name": "apple cider"
+    },
+    {
+        "name": "pork mince"
+    },
+    {
+        "name": "plain flour"
+    },
+    {
+        "name": "red cabbage"
     }
-   
+
 ]

@@ -1,3 +1,4 @@
+
 function showPassword() {
   let password = document.getElementById("password");
   let hidePsw = document.getElementById("hidePsw");
@@ -27,13 +28,37 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/");
+      let timerInterval
+Swal.fire({
+  title: 'Logging you in safely... <br> Please be patient!',
+  html: 'You will be logged in <strong></strong> seconds.',
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+    const content = Swal.getHtmlContainer()
+    const $ = content.querySelector.bind(content)
+    timerInterval = setInterval(() => {
+      Swal.getHtmlContainer().querySelector('strong')
+        .textContent = (Swal.getTimerLeft() / 1000)
+          .toFixed(0)
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+})
+      
+      .then(() => {
+        document.location.replace("/");
+    })
     } else {
-      alert(response.statusText);
+      document.getElementById("login-errors").classList.remove("d-none")
+
     }
   }
 };
 
 document
-  .querySelector("#login-now")
-  .addEventListener("click", loginFormHandler);
+  .querySelector("#login-form")
+  .addEventListener("submit", loginFormHandler);

@@ -8,22 +8,26 @@
     referrerpolicy="no-referrer"
   />
 
-  <link rel="stylesheet" href="../../css/login.css" />
+  <link rel="stylesheet" href="/css/login.css" />
 
-  <h1 class="heading">Login Here</h1>
-  <div class="input-box">
-    <i class="fa fa-envelope"></i>
-    <input type="email" placeholder="Email" id="email" />
-  </div>
-  <div class="input-box">
-    <i class="fa fa-key"></i>
-    <input type="password" placeholder="Password" id="password" />
-    <span class="eye" onclick="showPassword()">
-      <i id="hidePsw" class="fa-solid fa-eye"></i>
-      <i id="showPsw" class="fa-solid fa-eye-slash"></i>
-    </span>
-  </div>
-  <button type="button" class="login-btn" id="login-now"> Login Now</button>
+  <form id="login-form">
+    <h1 class="heading">Login Here</h1>
+    <div class="alert alert-danger d-none" id="login-errors">Invalid email or
+      password</div>
+    <div class="input-box">
+      <i class="fa fa-envelope"></i>
+      <input type="email" placeholder="Email" id="email" />
+    </div>
+    <div class="input-box">
+      <i class="fa fa-key"></i>
+      <input type="password" placeholder="Password" id="password" />
+      <span class="eye" onclick="showPassword()">
+        <i id="hidePsw" class="fa-solid fa-eye"></i>
+        <i id="showPsw" class="fa-solid fa-eye-slash"></i>
+      </span>
+    </div>
+    <button type="submit" class="login-btn"> Login Now</button>
+  </form>
   <p class="login-msg">
     New User?
     <a href="/register">Register Now</a>

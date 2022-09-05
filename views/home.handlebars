@@ -1,9 +1,44 @@
+<link rel="stylesheet" href="/css/home.css" />
+
 <h1>Home page</h1>
 
-<p>{{posts}}</p>
+<section class="container">
+    <div class="search">
+        <input
+            type="text"
+            id="searchText"
+            placeholder="Search Functionality Coming Soon..."
+            autofocus
+        />
+    </div>
+</section>
 
-{{#if user_id}}
-<a href="/fridge/{{user_id}}">Test</a>
-{{else}}
-<a href="/login">Test</a>
+<div id="recipe-container">
+    {{#each userRecipeClean as |recipe|}}
+        <div class="recipe">
+            <div class="recipe-title">{{recipe.name}}</div>
+            <div class="recipe-image">
+                <a href="/recipe/{{recipe.id}}"><img src="{{recipe.image}}" alt="Recipe"></a>
+            </div>
+            <div class="recipe-text">
+                <span class="badge rounded-pill bg-highlight p-2"><i class="fa-solid fa-clock mx-2"></i>Time: {{recipe.time}}</span>
+                <span class="badge rounded-pill bg-highlight p-2"><i class="fa-solid fa-graduation-cap mx-2"></i>Difficulty: {{recipe.difficulty}}</span>
+            </div>
+        </div>   
+    {{/each}} 
+</div>
+
+{{#if logged_in}}
+<div id="fridge-container">
+    <a href="/fridge/{{user_id}}">
+        <h2>My Fridge</h2>
+        <div class = "fridge">
+            <ul class="list-group">
+            {{#each userFridgeClean.fridge.stocks as |ingredient|}}
+                <li class="list-group-item">{{ingredient.name}}</li>
+            {{/each}}
+            </ul>
+        </div>
+    </a>
+</div>
 {{/if}}
